@@ -1,43 +1,55 @@
 import React from 'react'
 import Link from 'gatsby-link'
 
-const IndexPage = () => (
+const IndexPage = ({data}) => {
+  const tags = data.allProcessWireTag.edges
+  const discussions = data.allProcessWireDiscussion.edges
+  return (
   <div>
-  </div>
-)
-export default IndexPage
-/*
-  <div>
-    <h1>Hi people</h1>
-    <p>Welcome to your new Gatsby site.</p>
-    <p>Now go build something great.</p>
+    <h1>Testing index page</h1>
+    <h3>Tags below</h3>
     <ul>
-        {data.allStrapiArticle.edges.map( document => (
-            <li key={document.node.id}>
-                <h2>
-                    <Link to={`/${document.node.id}`}>{document.node.title}</Link>
-                </h2>
-                <p>{document.node.content}</p>
-            </li>
-        ))}
+      {tags.map( tag => (
+        <li key={tag.node.id}>
+          <h2>
+            <Link to={`/${tag.node.name}`}>{tag.node.title}</Link>
+          </h2>
+        </li>
+      ))}
     </ul>
-    <Link to="/page-2/">Go to page 2</Link>
+    <h3>Discussions below</h3>
+    <ul>
+    {discussions.map( dis => (
+      <li key={dis.node.id}>
+        <h2>
+          {dis.node.title}
+        </h2>
+      </li>
+    ))}
+    </ul>
   </div>
-)
-
-
+)}
+export default IndexPage
 
 export const pageQuery = graphql`
   query IndexQuery {
-    allStrapiArticle {
+    allProcessWireTag {
       edges {
         node {
           id
+          name
           title
-          content
+        }
+      }
+    }
+    allProcessWireDiscussion {
+      edges {
+        node {
+          id
+          name
+          title
         }
       }
     }
   }
 `;
-*/

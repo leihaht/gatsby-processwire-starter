@@ -5,19 +5,11 @@ module.exports = {
   plugins: [
     'gatsby-plugin-react-helmet',
     {
-      resolve: 'gatsby-source-filesystem',
+      resolve: 'gatsby-source-processwire',
       options: {
-        name: 'queries',
-        path: `${__dirname}/src/queries/`,
-      },
-    },
-    {
-      resolve: 'gatsby-source-graphql',
-      options: {
-        //headers: {
-          //authorization: `Bearer ${process.env.GITHUB_TOKEN}`,
-        //},
-        url: 'http://localhost/kiwigw/en/api',
+        apiURL: 'http://localhost/kiwigw/en/api',
+        contentTypes: ['tag', 'discussion'],
+        headers: {}
       },
     },
   ],

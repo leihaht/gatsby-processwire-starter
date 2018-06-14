@@ -7,7 +7,7 @@
  // You can delete this file if you're not using it
 
 const path = require('path');
-/*
+
 const makeRequest = (graphql, request) => new Promise(( resolve, reject ) => {
     // Query for nodes to use in creating pages.
     resolve(
@@ -19,6 +19,46 @@ const makeRequest = (graphql, request) => new Promise(( resolve, reject ) => {
         })
     )
 });
+
+
+
+// Implement the Gatsby API “createPages”. This is called once the
+// data layer is bootstrapped to let plugins create pages from data.
+exports.createPages = ({ boundActionCreators, graphql }) => {
+    const { createPage } = boundActionCreators;
+
+    const getTags = makeRequest( graphql, `
+        {
+            allProcessWireTag {
+              edges {
+                node {
+                  id
+                  name
+                }
+              }
+            }
+        }
+    `).then( result => {
+        // Create pages for each article.
+        result.data.allProcessWireTag.edges.forEach(({ node }) => {
+          createPage({
+              path: `/${node.name}`,
+              component: path.resolve('src/templates/tag.js'),
+              context: {
+                  name: node.name
+              }
+          })
+        })
+    });
+
+    // Queries for articles and authors nodes to use in creating pages.
+    return Promise.all([
+        getTags
+    ])
+};
+
+/*
+
 
 // Implement the Gatsby API “createPages”. This is called once the
 // data layer is bootstrapped to let plugins create pages from data.
