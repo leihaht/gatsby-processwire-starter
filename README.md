@@ -14,5 +14,3 @@ npm install
 
 [ProcessGraphQL](http://modules.processwire.com/modules/process-graph-ql/) module needs to be installed in ProcessWire.
 Legal templates, fields, and so on in the module setup.
-
-Queries need in src/queries/processwire.graphql
